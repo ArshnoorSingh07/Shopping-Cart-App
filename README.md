@@ -137,9 +137,9 @@ http://localhost:3000
 ## Screenshots
 
 
-```md
-![Home Page](screenshots/home1.png)
-```
+
+![Home Page](Screenshots/home1.png)
+
 
 ---
 
