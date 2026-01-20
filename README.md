@@ -153,6 +153,7 @@ http://localhost:3000
 ## Author
 
 Arshnoor Singh
+
 Email: [arshnoorsingh.05@gmail.com](mailto:arshnoorsingh.05@gmail.com)
 
 ---
