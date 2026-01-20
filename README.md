@@ -157,7 +157,6 @@ http://localhost:3000
 
 Arshnoor Singh
 Email: [arshnoorsingh.05@gmail.com](mailto:arshnoorsingh.05@gmail.com)
-GitHub | LinkedIn
 
 ---
 
