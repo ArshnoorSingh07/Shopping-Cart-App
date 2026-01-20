@@ -22,8 +22,8 @@ const Cart = () => {
       {
         cart.length>0
           ? (
-              <div>
-                <div>
+              <div className="flex max-w-6xl p-2 mx-auto space-y-5 min-h-[80vh]">
+                <div className="w-1/2" >
                   {
                     cart.map((item,index)=>(
                       <CartItem key={item.id} item={item} itemIndex={index}/>
@@ -51,7 +51,7 @@ const Cart = () => {
               </div>
             )
           : (
-              <div>
+              <div className="flex flex-col justify-center items-center">
                 <h1>Cart Empty</h1>
                 <Link to="/">
                   <button>
