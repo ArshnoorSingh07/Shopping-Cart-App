@@ -1,25 +1,26 @@
-# Shopping Cart App (React + Redux Toolkit)
+# Shopping Cart App
 
-A modern and responsive e-commerce shopping cart application built using **React.js**, **Redux Toolkit**, **Tailwind CSS**, and **Razorpay Payment Gateway**. The application allows users to browse products, add or remove items from the cart, view real-time cart totals, and complete purchases through Razorpay's secure checkout.
+A modern and responsive e-commerce shopping cart application built using **React.js**, **Redux Toolkit**, **Tailwind CSS**, and **Razorpay Checkout**. The application allows users to browse products, manage cart items, view real-time totals, and complete checkout through Razorpay.
 
 ---
 
 ## Live Demo
 
-https://shopping-cart-app-eta-five.vercel.app/
+- **Vercel:** https://shopping-cart-app-eta-five.vercel.app/
+- **AWS CloudFront:** https://d3bsis67to124.cloudfront.net/
 
 ---
 
 ## Features
 
-- Fetches product data from the FakeStore API
+- Fetches product data dynamically from the **FakeStore API**
 - Add products to the shopping cart
 - Remove products from the shopping cart
 - Real-time cart total calculation
-- **Razorpay payment gateway integration** for secure checkout
-- Order success page with payment confirmation and Payment ID
-- Global state management using Redux Toolkit
-- Client-side routing with React Router DOM
+- Global cart state management using **Redux Toolkit**
+- Razorpay payment integration for checkout
+- Order success page with payment confirmation
+- Client-side routing using **React Router DOM**
 - Loading spinner during API requests
 - Toast notifications for user actions
 - Fully responsive design for desktop, tablet, and mobile devices
@@ -39,10 +40,6 @@ https://shopping-cart-app-eta-five.vercel.app/
 - Redux Toolkit
 - React Redux
 
-### Payment Gateway
-
-- Razorpay Checkout.js
-
 ### Routing & Utilities
 
 - React Router DOM
@@ -52,8 +49,14 @@ https://shopping-cart-app-eta-five.vercel.app/
 
 - FakeStore API
 
+### Payment Gateway
+
+- Razorpay Checkout
+
 ### Deployment
 
+- AWS S3
+- AWS CloudFront
 - Vercel
 
 ---
@@ -108,74 +111,159 @@ shopping-cart-app/
 ### Home Page
 
 - Fetches product data from the FakeStore API
-- Displays products using reusable Product components
-- Shows a loading spinner while products are loading
+- Displays products using reusable React components
+- Shows a loading spinner while product data is being fetched
+- Allows users to add products directly to the shopping cart
 
 ### Cart Page
 
 - Displays all selected products
 - Calculates the total cart value dynamically
 - Allows users to remove products from the cart
-- Displays an empty cart state when no products are added
-- **Checkout Now** button triggers Razorpay payment modal
+- Displays an empty-cart state when no products are added
+- Provides a checkout option through Razorpay
 
 ### Payment Flow
 
-- Clicking **Checkout Now** opens the Razorpay payment modal
-- Supports test card payments (card: `4111 1111 1111 1111`, any future expiry, any CVV)
-- On successful payment, the cart is cleared and the user is redirected to the **Order Success** page
-- The Order Success page displays a payment confirmation with the Razorpay Payment ID
-- On payment failure or dismissal, an error toast is shown and the cart remains intact
+- Clicking **Checkout Now** opens the Razorpay checkout modal
+- Users can complete a test payment through Razorpay
+- On successful payment:
+  - The cart is cleared
+  - The user is redirected to the **Order Success** page
+  - Payment confirmation details are displayed
+- On payment failure or cancellation:
+  - An error notification is displayed
+  - Cart contents remain unchanged
 
 ### State Management
 
-- Cart state is managed globally using Redux Toolkit
-- Actions and reducers are defined inside `cartSlice.js` (`add`, `remove`, `clearCart`)
-- Uses `useSelector` and `useDispatch` for accessing and updating the store
+Cart state is managed globally using **Redux Toolkit**.
+
+The application uses:
+
+- `useSelector` to access cart state
+- `useDispatch` to trigger Redux actions
+- `add` action to add products
+- `remove` action to remove products
+- `clearCart` action to clear the cart after successful checkout
+
+---
+
+## AWS Deployment
+
+The production build of the application is deployed using **Amazon Web Services**.
+
+### AWS Services Used
+
+- **Amazon S3** for hosting the static React production build
+- **Amazon CloudFront** for CDN-based content delivery
+- HTTPS delivery through the CloudFront distribution
+
+### Deployment Architecture
+
+```text
+React Application
+       |
+       v
+Production Build
+       |
+       v
+Amazon S3
+       |
+       v
+Amazon CloudFront
+       |
+       v
+HTTPS Website
+```
 
 ---
 
 ## Installation and Setup
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ArshnoorSingh07/Shopping-Cart-App.git
 ```
 
-### 2. Navigate to the project directory
+### 2. Navigate to the Project Directory
 
 ```bash
 cd Shopping-Cart-App
 ```
 
-### 3. Install dependencies
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Set up environment variables
+### 4. Configure Environment Variables
 
-Create a `.env` file in the root directory (or update the existing one) with your Razorpay test key:
+Create a `.env` file in the root directory and add your Razorpay test key:
 
 ```env
 REACT_APP_RAZORPAY_KEY_ID=rzp_test_YOUR_KEY_HERE
 ```
 
-You can get your test key from the [Razorpay Dashboard](https://dashboard.razorpay.com/app/keys).
-
-### 5. Start the development server
+### 5. Start the Development Server
 
 ```bash
 npm start
 ```
 
-### 6. Build for production
+The application will run locally at:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## Production Build
+
+To create an optimized production build:
 
 ```bash
 npm run build
 ```
+
+The production-ready files will be generated inside the:
+
+```text
+build/
+```
+
+directory.
+
+---
+
+## AWS S3 Deployment
+
+After generating the production build, upload the contents of the `build` directory to an Amazon S3 bucket configured for static website hosting.
+
+Example using AWS CLI:
+
+```bash
+aws s3 sync build/ s3://your-bucket-name --delete
+```
+
+---
+
+## CloudFront Deployment
+
+CloudFront is configured in front of the S3 bucket to provide:
+
+- HTTPS support
+- Global CDN delivery
+- Faster asset loading
+- Content caching
+- Improved website availability
+
+The deployed CloudFront version of the project is available at:
+
+https://d3bsis67to124.cloudfront.net/
 
 ---
 
@@ -189,14 +277,17 @@ npm run build
 
 ## Future Enhancements
 
-- Increase and decrease product quantity
-- Save cart data using Local Storage
+- Product quantity increase and decrease controls
+- Cart persistence using Local Storage
 - Product search functionality
 - Category and price filters
-- Backend integration for order creation and payment verification
-- Dark mode support
 - Wishlist functionality
+- Dark mode support
 - Order history page
+- Backend integration for order creation
+- Server-side Razorpay payment verification
+- User authentication
+- Persistent user carts
 
 ---
 
@@ -211,4 +302,4 @@ npm run build
 
 ## License
 
-This project is intended for learning and educational purposes.
+This project is intended for learning, educational, and portfolio purposes.
