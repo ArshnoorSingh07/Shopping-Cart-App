@@ -72,7 +72,7 @@ const Cart = () => {
 
               <div className="flex justify-between text-base font-semibold text-gray-800 py-3 border-t border-gray-100">
                 <span>Total Amount</span>
-                <span>₹{totalAmount.toFixed(2)}</span>
+                <span>${totalAmount.toFixed(2)}</span>
               </div>
 
               <button
