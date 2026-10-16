@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { clearCart } from "../redux/Slices/cartSlice";
 import { initiateRazorpayPayment } from "../utils/razorpay";
 import toast from "react-hot-toast";
+import { formatPrice } from "../utils/currency";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state);
@@ -42,24 +43,24 @@ const Cart = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-2 min-h-[80vh]">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 min-h-[80vh]">
       {cart.length > 0 ? (
-        <div className="flex flex-col lg:flex-row gap-6 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 py-6 sm:py-10">
           {/* Cart Items */}
-          <div className="w-full lg:w-2/3 space-y-4">
-            {cart.map((item, index) => (
+          <div className="min-w-0 lg:col-span-2 space-y-4">
+            {cart.map((item) => (
               <div
                 key={item.id}
                 className="bg-white rounded-lg shadow-sm border border-gray-100 p-4"
               >
-                <CartItem item={item} itemIndex={index} />
+                <CartItem item={item} />
               </div>
             ))}
           </div>
 
           {/* Order Summary */}
-          <div className="w-full lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 sticky top-4">
+          <div className="min-w-0">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 sm:p-6 lg:sticky lg:top-4">
               <h2 className="text-lg font-semibold text-gray-800 mb-1">
                 Your Cart
               </h2>
@@ -70,15 +71,15 @@ const Cart = () => {
                 <span>{cart.length}</span>
               </div>
 
-              <div className="flex justify-between text-base font-semibold text-gray-800 py-3 border-t border-gray-100">
+              <div className="flex flex-wrap justify-between gap-2 text-base font-semibold text-gray-800 py-3 border-t border-gray-100">
                 <span>Total Amount</span>
-                <span>${totalAmount.toFixed(2)}</span>
+                <span>{formatPrice(totalAmount)}</span>
               </div>
 
               <button
                 onClick={handleCheckout}
                 disabled={isProcessing}
-                className={`w-full mt-4 font-medium py-2.5 rounded-md transition-colors text-white
+                className={`w-full min-h-[44px] mt-4 font-medium py-2.5 rounded-md transition-colors text-white
                   ${isProcessing
                     ? "bg-blue-400 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700"
