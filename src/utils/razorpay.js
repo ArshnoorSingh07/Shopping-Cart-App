@@ -1,3 +1,5 @@
+import { CURRENCY } from "./currency";
+
 /**
  * Initiates Razorpay payment checkout.
  *
@@ -29,7 +31,7 @@ export const initiateRazorpayPayment = ({ amount, cartItems, onSuccess, onFailur
   const options = {
     key: keyId,
     amount: amountInPaise,
-    currency: "USD",
+    currency: CURRENCY,
     name: "Shopping Cart",
     description: description,
     image: "/logo.png",
