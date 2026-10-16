@@ -15,7 +15,7 @@ const OrderSuccess = () => {
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4">
       <div
-        className={`bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-12 max-w-lg w-full text-center
+        className={`bg-white rounded-2xl shadow-lg border border-gray-100 p-5 sm:p-8 md:p-12 max-w-lg min-w-0 w-full text-center
           transition-all duration-700 ease-out
           ${showContent ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"}`}
       >
