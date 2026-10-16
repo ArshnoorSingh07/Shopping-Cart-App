@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { add,remove } from "../redux/Slices/cartSlice";
+import { formatPrice } from "../utils/currency";
 
 const Product = ({post}) => {
 
@@ -20,24 +21,24 @@ const Product = ({post}) => {
 
 
   return(
-    <div className="flex flex-col items-center justify-between hover:scale-110 
-    transition-all duration-300 ease-in hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] rounded-xl
-    gap-3 p-4 mt-10 ml-5 border">
-      <div>
-        <p className="text-gray-700 font-semibold text-lg text-left truncate w-40 mt-1">{post.title}</p>
+    <div className="flex min-w-0 flex-col items-center justify-between
+    transition-shadow duration-300 hover:shadow-lg rounded-xl
+    gap-3 p-4 border">
+      <div className="w-full min-w-0">
+        <p className="text-gray-700 font-semibold text-base text-left break-words mt-1">{post.title}</p>
       </div>
       
-      <div>
-        <p className="w-40 text-gray-400 font-normal text-[10px] text-left">{post.description.split(" ").slice(0,10).join(" ") + "..."}</p>
+      <div className="w-full">
+        <p className="text-gray-500 font-normal text-xs text-left break-words">{post.description.split(" ").slice(0,10).join(" ") + "..."}</p>
       </div>
 
-      <div className="h-[180px]">
-        <img src={post.image} alt="" className="h-full w-full"/>
+      <div className="h-44 sm:h-48 w-full p-2">
+        <img src={post.image} alt={post.title} className="h-full w-full object-contain"/>
       </div>
 
-      <div className="flex justify-between gap-12 mt-5">
+      <div className="flex w-full flex-wrap items-center justify-between gap-3 mt-3">
         <div>
-          <p className="text-green-600 font-semibold items-center w-full mt-1">${post.price}</p>
+          <p className="text-green-600 font-semibold items-center w-full mt-1">{formatPrice(post.price)}</p>
         </div>
 
         {
@@ -45,7 +46,7 @@ const Product = ({post}) => {
             ? (
                 <button
                 className="text-gray-700 border-2 border-gray-700 rounded-full font-semibold text-[12px]
-                p-1 px-3 uppercase 
+                min-h-[44px] px-3 py-2 uppercase
                 hover:bg-gray-700 hover:text-white transition-all duration-300 ease-in"
                 onClick={removeFromCart}
                 >
@@ -55,7 +56,7 @@ const Product = ({post}) => {
             : (
                 <button
                 className="text-gray-700 border-2 border-gray-700 rounded-full font-semibold text-[12px]
-                p-1 px-3 uppercase 
+                min-h-[44px] px-3 py-2 uppercase
                 hover:bg-gray-700 hover:text-white transition-all duration-300 ease-in"
                 onClick={addToCart}
                 >
