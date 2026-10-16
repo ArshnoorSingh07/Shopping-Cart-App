@@ -29,7 +29,7 @@ export const initiateRazorpayPayment = ({ amount, cartItems, onSuccess, onFailur
   const options = {
     key: keyId,
     amount: amountInPaise,
-    currency: "INR",
+    currency: "USD",
     name: "Shopping Cart",
     description: description,
     image: "/logo.png",
